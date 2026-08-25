@@ -1,24 +1,29 @@
 import styles from "./styles.module.css";
 
-export default function Header() {
-    return (
-        <header className={styles.header}>
-            <div className={styles.container}>
-                <div className={styles.menu}>
-                    <img src="/logo-black-m.png" alt="Trip Trip" className={styles.logo} />
+type HeroBannerProps = {
+  small?: boolean;
+};
 
-                    <nav className={styles.nav}>
-                        <a href="#" className={styles.link}>트립토크</a>
-                        <a href="#" className={`${styles.link} ${styles.active}`}>숙박권 구매</a>
-                        <a href="#" className={styles.link}>마이 페이지</a>
-                    </nav>
-                </div>
+export default function HeroBanner({ small = false }: HeroBannerProps) {
+  return (
+    <section
+      className={`${styles.hero} ${small ? styles.small : ""}`}
+      aria-label="해변 여행 배너"
+    >
+      {/* 메인 화면의 큰 배너에만 여행 문구를 보여줘요. */}
+      {!small && (
+        <div className={styles.textBox}>
+          <p>여행이 시작되는 순간</p>
+          <h1>트립트립과 함께 특별한 이야기를 만들어보세요.</h1>
+        </div>
+      )}
 
-                <button className={styles.profile}>
-                    <span className={styles.profileIcon}>♙</span>
-                    <span className={styles.arrow}>▾</span>
-                </button>
-            </div>
-        </header>
-    );
+      <div className={styles.dots} aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+    </section>
+  );
 }
