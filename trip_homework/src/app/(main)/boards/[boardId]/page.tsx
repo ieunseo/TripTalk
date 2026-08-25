@@ -13,7 +13,7 @@ export default async function BoardDetailPage({ params }: BoardDetailPageProps) 
     <main>
       {/* 상세 페이지에서는 메인보다 낮은 배너를 재사용해요. */}
       <HeroBanner small />
-      <BoardDetail boardId={boardId} />
+      <BoardDetail  />
     </main>
   );
 }

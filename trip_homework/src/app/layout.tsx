@@ -1,12 +1,7 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import ApolloSetting from "@/components/providers/apollo-setting";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "TripTrip",
-  description: "TripTrip 초기 과제 구조 예제",
-};
 
 type RootLayoutProps = {
   children: ReactNode;
