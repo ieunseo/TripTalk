@@ -8,7 +8,6 @@ export default function HomePage() {
       {/* 페이지는 큰 화면 조각을 순서대로 조립해요. */}
       <HeroBanner />
       <BoardSection />
-        <BoardNewPage />
     </main>
   );
 }

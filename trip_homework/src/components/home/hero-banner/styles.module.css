@@ -1,0 +1,100 @@
+.header {
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.container {
+    width: calc(100% - 40px);
+    max-width: 1280px;
+    height: 76px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.logo {
+    width: 52px;
+    height: auto;
+    display: block;
+}
+
+.nav {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.link {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    color: #333333;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.active {
+    color: #111111;
+    font-weight: 700;
+}
+
+.active::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 15px;
+
+    height: 2px;
+    background-color: #111111;
+}
+
+.profile {
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 0;
+    background: none;
+
+    cursor: pointer;
+}
+
+.profileIcon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: #eeeeee;
+
+    color: #777777;
+    font-size: 24px;
+}
+
+.arrow {
+    color: #111111;
+    font-size: 12px;
+}
