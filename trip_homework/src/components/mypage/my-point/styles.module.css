@@ -1,0 +1,59 @@
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 12px 16px;
+  cursor: pointer;
+  background: white;
+  border: 0;
+  border-radius: 8px;
+}
+
+.tabs .active {
+  color: white;
+  font-weight: 700;
+  background: black;
+}
+
+.box {
+  padding: 28px 46px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 7%);
+}
+
+.head,
+.row {
+  display: grid;
+  grid-template-columns: 120px 1fr 220px 120px;
+  gap: 10px;
+  align-items: center;
+}
+
+.head {
+  padding: 12px 40px;
+  font-weight: 700;
+}
+
+.row {
+  padding: 14px 40px;
+  margin: 10px 0;
+  color: #999;
+  border: 1px solid #f0f0f0;
+  border-radius: 9px;
+}
+
+.row strong:last-child {
+  color: #333;
+}
+
+.blue {
+  color: #3182f6;
+}
+
+.red {
+  color: #ff6b6b;
+}
