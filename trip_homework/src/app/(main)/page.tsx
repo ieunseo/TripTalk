@@ -1,6 +1,5 @@
 import BoardSection from "@/components/home/board-section";
 import HeroBanner from "@/components/home/hero-banner";
-import BoardNewPage from "@/app/(main)/boards/new/page";
 
 export default function HomePage() {
   return (
