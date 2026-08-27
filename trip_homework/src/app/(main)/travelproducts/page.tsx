@@ -4,6 +4,7 @@ import HeroBanner from "@/components/home/hero-banner";
 import ProductCard from "@/components/travelproducts/product-card";
 
 import styles from "./styles.module.css";
+import Link from "next/link";
 
 // 상단의 큰 추천 숙소 카드에 보여 줄 내용이에요.
 const featuredProducts = [
@@ -130,10 +131,10 @@ export default function TravelProductsPage() {
               검색
             </button>
 
-            <button className={styles.sellButton} type="button">
+            <Link href="/travelproducts/new" className={styles.sellButton} type="button">
               <Image src="/icons/rwite.svg" alt="" width={20} height={20} />
               숙박권 판매하기
-            </button>
+            </Link>
           </div>
 
           <div className={styles.categoryList}>
