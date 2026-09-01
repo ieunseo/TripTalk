@@ -1,122 +1,138 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
 import styles from "./styles.module.css";
-import { ChangeEvent, useRef, useState } from "react";
-import Image from "next/image";
 
-/* 게시물 등록 */
 export default function BoardNewPage() {
-    const imageInput = useRef<HTMLInputElement>(null);
+  const [writer, setWriter] = useState("");
+  const [password, setPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
-    const [showImgUrls, setShowImgUrls] = useState<string[]>(["", "", ""]);
-    const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  // 필수 항목을 다 채워야 등록하기 버튼이 파란색으로 활성화돼요.
+  const isValid = Boolean(writer && password && title && content);
 
-    // 파일 선택 후 이미지 미리보기
-    const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+  return (
+    <main className={styles.page}>
+      <h1>게시물 등록</h1>
 
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            const newImgUrls = [...showImgUrls];
+      <div className={styles.row}>
+        <div className={styles.field}>
+          <label htmlFor="writer">작성자 *</label>
+          <input
+            id="writer"
+            value={writer}
+            onChange={(event) => setWriter(event.target.value)}
+            placeholder="작성자 명을 입력해 주세요."
+          />
+        </div>
 
-            newImgUrls[selectedImageIndex] = imageUrl;
-            setShowImgUrls(newImgUrls);
-        }
-    };
+        <div className={styles.field}>
+          <label htmlFor="password">비밀번호 *</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="비밀번호를 입력해 주세요."
+          />
+        </div>
+      </div>
 
-    // 업로드 박스 클릭 → 숨겨진 input 클릭
-    const handleUploadButtonClick = (index: number) => {
-        setSelectedImageIndex(index);
+      <hr className={styles.divider} />
 
-        if (imageInput.current) {
-            imageInput.current.click();
-        }
-    };
+      <div className={styles.field}>
+        <label htmlFor="title">제목 *</label>
+        <input
+          id="title"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          placeholder="제목을 입력해 주세요."
+        />
+      </div>
 
-    return (
-        <main className={styles.page}>
-            <h2>게시물 등록</h2>
+      <hr className={styles.divider} />
 
-            <div className={styles.user}>
-                <div>
-                    <p>작성자<span>*</span></p>
-                    <input type="text" placeholder="작성자 명을 입력해주세요." required />
-                </div>
+      <div className={styles.field}>
+        <label htmlFor="content">내용 *</label>
+        <textarea
+          id="content"
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
+          placeholder="내용을 입력해 주세요."
+        />
+      </div>
 
-                <div>
-                    <p>비밀번호<span>*</span></p>
-                    <input type="password" placeholder="비밀번호를 입력해주세요." required />
-                </div>
-            </div>
+      <hr className={styles.divider} />
 
-            <hr />
+      <div className={styles.field}>
+        <label>주소</label>
+        <div className={styles.zipRow}>
+          <input
+            className={styles.zipInput}
+            value={zipCode}
+            onChange={(event) => setZipCode(event.target.value)}
+            placeholder="01234"
+          />
+          <button className={styles.zipButton} type="button">
+            우편번호 검색
+          </button>
+        </div>
+        <input
+          value={address}
+          onChange={(event) => setAddress(event.target.value)}
+          placeholder="주소를 입력해 주세요."
+        />
+        <input
+          value={detailAddress}
+          onChange={(event) => setDetailAddress(event.target.value)}
+          placeholder="상세주소"
+        />
+      </div>
 
-            <div className={styles.field}>
-                <p>제목<span>*</span></p>
-                <input type="text" placeholder="제목을 입력해주세요." required />
-            </div>
+      <div className={styles.field}>
+        <label htmlFor="youtube">유튜브 링크</label>
+        <input
+          id="youtube"
+          value={youtubeUrl}
+          onChange={(event) => setYoutubeUrl(event.target.value)}
+          placeholder="링크를 입력해 주세요."
+        />
+      </div>
 
-            <hr />
+      <div className={styles.field}>
+        <label>사진 첨부</label>
+        <div className={styles.photoRow}>
+          {[1, 2, 3].map((box) => (
+            <button className={styles.photoBox} type="button" key={box}>
+              <span className={styles.plus}>+</span>
+              <span>클릭해서 사진 업로드</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-            <div className={styles.field}>
-                <p>내용<span>*</span></p>
-                <textarea placeholder="내용을 입력해주세요." required />
-            </div>
-
-            <hr />
-
-            <div className={styles.address}>
-                <p>주소</p>
-
-                <div>
-                    <input type="text" placeholder="우편번호" />
-                    <button type="button">우편번호 검색</button>
-                </div>
-
-                <input type="text" placeholder="주소를 입력해주세요." />
-                <input type="text" placeholder="상세주소" />
-            </div>
-
-            <hr />
-
-            <div className={styles.field}>
-                <p>유튜브 링크</p>
-                <input type="text" placeholder="링크를 입력해주세요." />
-            </div>
-
-            <hr />
-
-            <section>
-                <p>사진 첨부</p>
-
-                <div className={styles.imageList}>
-                    {showImgUrls.map((showImgUrl, index) => (
-                        <div key={index} className={styles.imageBox}>
-                            {showImgUrl ? (
-                                <div className={styles.imagePreview}>
-                                    <Image fill src={showImgUrl} alt="첨부 이미지" className={styles.previewImage} />
-
-                                    <button type="button" className={styles.editButton} onClick={() => handleUploadButtonClick(index)}>
-                                        이미지 수정
-                                    </button>
-                                </div>
-                            ) : (
-                                <button type="button" className={styles.uploadButton} onClick={() => handleUploadButtonClick(index)}>
-                                    <p className={styles.plus}>+</p>
-                                    <p>클릭해서 사진 업로드</p>
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-
-                <div className={styles.buttons}>
-                    <button type="button">취소</button>
-                    <button type="button" disabled>등록하기</button>
-                </div>
-
-                <input type="file" ref={imageInput} className={styles.fileInput} accept="image/png, image/jpeg" onChange={handleImgChange} />
-            </section>
-        </main>
-    );
+      <div className={styles.buttonRow}>
+        <Link className={styles.cancelButton} href="/">
+          취소
+        </Link>
+        <button
+          className={
+            isValid
+              ? `${styles.submitButton} ${styles.active}`
+              : styles.submitButton
+          }
+          type="button"
+          disabled={!isValid}
+        >
+          등록하기
+        </button>
+      </div>
+    </main>
+  );
 }

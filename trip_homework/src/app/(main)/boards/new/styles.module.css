@@ -1,215 +1,154 @@
 .page {
   width: calc(100% - 40px);
   max-width: 1280px;
+  min-height: 700px;
   margin: 0 auto;
-  padding: 60px 0 80px;
-
-  color: #111111;
+  padding: 60px 0 100px;
 }
 
-.page h2 {
-  margin: 0 0 48px;
-
-  font-size: 24px;
-  font-weight: 700;
+.page h1 {
+  margin: 0 0 30px;
+  font-size: 28px;
 }
 
-.page p {
-  margin: 0 0 12px;
-
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.page p span {
-  margin-left: 4px;
-
-  color: #ff4d4f;
-}
-
-.page input,
-.page textarea {
-  width: 100%;
-  padding: 0 16px;
-
-  border: 1px solid #d9d9d9;
-  border-radius: 6px;
-  outline: none;
-
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-.page input {
-  height: 48px;
-}
-
-.page textarea {
-  height: 330px;
-  padding: 16px;
-
-  resize: none;
-}
-
-.page input::placeholder,
-.page textarea::placeholder {
-  color: #b8b8b8;
-}
-
-.page input:focus,
-.page textarea:focus {
-  border-color: #999999;
-}
-
-.page hr {
-  margin: 38px 0;
-
-  border: 0;
-  border-top: 1px solid #eeeeee;
-}
-
-.user {
+.row {
   display: flex;
-  gap: 40px;
+  gap: 20px;
 }
 
-.user > div {
+.row .field {
   flex: 1;
 }
 
 .field {
-  width: 100%;
-}
-
-.address > div {
   display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.address > div input {
-  width: 80px;
+.field label {
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.address > div button {
-  height: 48px;
+.field input,
+.field textarea {
+  width: 100%;
   padding: 0 16px;
-
-  border: 1px solid #111111;
+  border: 1px solid #dddddd;
   border-radius: 6px;
-  background-color: #ffffff;
+  outline: 0;
+  font-size: 14px;
+}
 
+.field input {
+  height: 48px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #bbbbbb;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #2878ef;
+}
+
+.field textarea {
+  height: 160px;
+  padding: 14px 16px;
+  resize: none;
+}
+
+.divider {
+  margin: 0 0 24px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+}
+
+.zipRow {
+  display: flex;
+  gap: 10px;
+}
+
+.zipInput {
+  width: 150px;
+}
+
+.zipButton {
+  width: 130px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  background: #ffffff;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.address > input {
-  margin-bottom: 8px;
-}
-
-.imageList {
+.photoRow {
   display: flex;
   gap: 16px;
 }
 
-.imageBox {
-  width: 160px;
-  height: 160px;
-}
-
-.uploadButton {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-
+.photoBox {
+  display: flex;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: 0;
-  border-radius: 6px;
-  background-color: #f3f3f3;
-
-  color: #777777;
-  cursor: pointer;
-}
-
-.uploadButton p {
-  margin: 0;
-  font-weight: 400;
-}
-
-.uploadButton .plus {
-  margin-bottom: 10px;
-
-  color: #666666;
-  font-size: 36px;
-  font-weight: 300;
-  line-height: 1;
-}
-
-.imagePreview {
-  width: 100%;
-  height: 100%;
-
-  position: relative;
-  overflow: hidden;
-
-  border-radius: 6px;
-}
-
-.previewImage {
-  object-fit: cover;
-}
-
-.editButton {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-
-  padding: 6px 8px;
-
-  border: 0;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
-
-  color: #ffffff;
+  border-radius: 8px;
+  color: #999999;
+  background: #f5f5f5;
   font-size: 12px;
   cursor: pointer;
 }
 
-.buttons {
-  margin-top: 40px;
+.plus {
+  font-size: 22px;
+}
 
+.buttonRow {
   display: flex;
+  margin-top: 30px;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
 }
 
-.buttons button {
+.cancelButton {
+  display: flex;
+  width: 72px;
   height: 48px;
-  padding: 0 20px;
-
-  border: 1px solid #111111;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dddddd;
   border-radius: 6px;
-  background-color: #ffffff;
-
+  color: #333333;
+  background: #ffffff;
   font-size: 14px;
-  font-weight: 600;
+}
+
+.submitButton {
+  width: 96px;
+  height: 48px;
+  border: 0;
+  border-radius: 6px;
+  color: #999999;
+  background: #eeeeee;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: not-allowed;
+}
+
+.submitButton.active {
+  color: #ffffff;
+  background: #2878ef;
   cursor: pointer;
-}
-
-.buttons button:last-child {
-  border-color: #111111;
-  background-color: #111111;
-  color: #ffffff;
-}
-
-.buttons button:disabled {
-  border-color: #dddddd;
-  background-color: #dddddd;
-  color: #ffffff;
-
-  cursor: default;
-}
-
-.fileInput {
-  display: none;
 }

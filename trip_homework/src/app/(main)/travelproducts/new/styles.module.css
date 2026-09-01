@@ -1,61 +1,191 @@
 .page {
-    width: min(100%, 800px);
-    margin: 0 auto;
-    padding: 64px 24px 100px;
-    color: #222;
+  width: calc(100% - 40px);
+  max-width: 1280px;
+  min-height: 700px;
+  margin: 0 auto;
+  padding: 60px 0 100px;
 }
 
 .page h1 {
-    margin: 0 0 46px;
-    font-size: 28px;
-    font-weight: 700;
+  margin: 0 0 30px;
+  font-size: 28px;
 }
 
-.field, .location { margin-top: 30px; }
-.field p, .label { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
-.field p span, .label span { margin-left: 3px; color: #ff4f4f; }
-.page input, .page textarea {
-    box-sizing: border-box;
+.field {
+  display: flex;
+  margin-bottom: 24px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0 16px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  outline: 0;
+  font-size: 14px;
+}
+
+.field input {
+  height: 48px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #bbbbbb;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #2878ef;
+}
+
+.editor :global(.ql-toolbar.ql-snow) {
+  border-color: #dddddd;
+  border-radius: 6px 6px 0 0;
+}
+
+.editor :global(.ql-container.ql-snow) {
+  height: 220px;
+  border-color: #dddddd;
+  border-radius: 0 0 6px 6px;
+  font-size: 14px;
+}
+
+.zipRow {
+  display: flex;
+  gap: 10px;
+}
+
+.zipInput {
+  width: 150px;
+}
+
+.zipButton {
+  width: 130px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.locationRow {
+  display: flex;
+  margin-bottom: 24px;
+  gap: 30px;
+}
+
+.locationLeft {
+  width: 400px;
+  flex-shrink: 0;
+}
+
+.locationLeft .field {
+  margin-bottom: 14px;
+}
+
+.locationRight {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.locationRight label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mapBox {
+  display: flex;
+  flex: 1;
+  min-height: 220px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 6px;
+  color: #999999;
+  background: #f2f2f2;
+  font-size: 13px;
+  text-align: center;
+}
+
+.photoBox {
+  display: flex;
+  width: 140px;
+  height: 140px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  color: #999999;
+  background: #f5f5f5;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.plus {
+  font-size: 22px;
+}
+
+.buttonRow {
+  display: flex;
+  margin-top: 30px;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancelButton {
+  display: flex;
+  width: 72px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  color: #333333;
+  background: #ffffff;
+  font-size: 14px;
+}
+
+.submitButton {
+  width: 96px;
+  height: 48px;
+  border: 0;
+  border-radius: 6px;
+  color: #999999;
+  background: #eeeeee;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: not-allowed;
+}
+
+.submitButton.active {
+  color: #ffffff;
+  background: #2878ef;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .locationRow {
+    flex-direction: column;
+  }
+
+  .locationLeft {
     width: 100%;
-    border: 1px solid #d9d9d9;
-    border-radius: 8px;
-    padding: 14px 16px;
-    font: inherit;
-    font-size: 14px;
-    outline: none;
-}
-
-.page input:focus, .page textarea:focus { border-color: #2b6df8; }
-.page textarea { min-height: 100px; resize: vertical; }
-.page hr { margin: 44px 0; border: 0; border-top: 1px solid #eee; }
-.productSummary { margin-top: 30px; }
-.productSummary > p { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
-.productSummary > p span { margin-left: 3px; color: #ff4f4f; }
-.productSummary :global(.ql-toolbar.ql-snow) { border: 1px solid #d9d9d9; border-radius: 8px 8px 0 0; }
-.productSummary :global(.ql-container.ql-snow) { min-height: 260px; border: 1px solid #d9d9d9; border-top: 0; border-radius: 0 0 8px 8px; font-family: inherit; }
-.productSummary :global(.ql-editor.ql-blank::before) { color: #aaa; font-style: normal; }
-.price { position: relative; }
-.price input { padding-right: 46px; }
-.price span { position: absolute; top: 14px; right: 16px; color: #666; font-size: 14px; }
-.zip { display: flex; gap: 8px; margin-bottom: 8px; }
-.zip input { width: 180px; }
-.zip button, .actions button { border: 0; border-radius: 8px; font: inherit; font-weight: 600; cursor: pointer; }
-.zip button { min-width: 126px; background: #555; color: #fff; }
-.location > input { margin-top: 8px; }
-.coord { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.map { display: grid; height: 260px; place-items: center; border-radius: 8px; background: #f3f5f7; color: #8a8f98; font-size: 14px; }
-.upload { display: grid; width: 136px; height: 136px; place-items: center; align-content: center; gap: 5px; border: 1px dashed #bfc4cc; border-radius: 8px; color: #777; cursor: pointer; }
-.upload input { display: none; }
-.upload strong { font-size: 30px; font-weight: 300; color: #555; }
-.upload span, .field small { font-size: 12px; }
-.field small { display: block; margin-top: 9px; color: #888; }
-.actions { display: flex; justify-content: center; gap: 12px; margin-top: 60px; }
-.actions button { width: 160px; padding: 16px; }
-.cancel { background: #eee; color: #555; }
-.submit { background: #2b6df8; color: #fff; }
-
-@media (max-width: 600px) {
-    .page { padding: 40px 16px 70px; }
-    .coord { grid-template-columns: 1fr; gap: 0; }
-    .actions button { width: 50%; }
+  }
 }

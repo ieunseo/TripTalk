@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 import styles from "./styles.module.css";
 
 // 상품 카드가 받아야 하는 값들의 타입이에요.
 type ProductCardProps = {
+  id: number;
   image: string;
   title: string;
   description: string;
@@ -16,6 +18,7 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({
+  id,
   image,
   title,
   description,
@@ -33,13 +36,15 @@ export default function ProductCard({
   return (
     <article className={styles.card}>
       <div className={styles.imageBox}>
-        <Image
-          className={styles.productImage}
-          src={image}
-          alt={title}
-          width={296}
-          height={296}
-        />
+        <Link href={`/travelproducts/${id}`}>
+          <Image
+            className={styles.productImage}
+            src={image}
+            alt={title}
+            width={296}
+            height={296}
+          />
+        </Link>
 
         <button
           className={`${styles.bookmarkButton} ${isBookmarked ? styles.active : ""}`}
@@ -53,10 +58,10 @@ export default function ProductCard({
         </button>
       </div>
 
-      <div className={styles.textBox}>
+      <Link className={styles.textBox} href={`/travelproducts/${id}`}>
         <h3>{title}</h3>
         <p>{description}</p>
-        <a href="#product-list">{tag}</a>
+        <span className={styles.tag}>{tag}</span>
 
         <div className={styles.bottomRow}>
           <div className={styles.writer}>
@@ -67,7 +72,7 @@ export default function ProductCard({
           </div>
           <strong>{price}</strong>
         </div>
-      </div>
+      </Link>
     </article>
   );
 }

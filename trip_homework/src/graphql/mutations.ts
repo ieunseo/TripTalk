@@ -17,3 +17,51 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const LIKE_BOARD = gql`
+  mutation likeBoard($boardId: ID!) {
+    likeBoard(boardId: $boardId)
+  }
+`;
+
+export const DISLIKE_BOARD = gql`
+  mutation dislikeBoard($boardId: ID!) {
+    dislikeBoard(boardId: $boardId)
+  }
+`;
+
+export const CREATE_BOARD_COMMENT = gql`
+  mutation createBoardComment(
+    $boardId: ID!
+    $input: CreateBoardCommentInput!
+  ) {
+    createBoardComment(boardId: $boardId, createBoardCommentInput: $input) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_BOARD_COMMENT = gql`
+  mutation deleteBoardComment($boardCommentId: ID!, $password: String) {
+    deleteBoardComment(
+      boardCommentId: $boardCommentId
+      password: $password
+    )
+  }
+`;
+
+export const UPDATE_BOARD_COMMENT = gql`
+  mutation updateBoardComment(
+    $boardCommentId: ID!
+    $password: String
+    $input: UpdateBoardCommentInput!
+  ) {
+    updateBoardComment(
+      boardCommentId: $boardCommentId
+      password: $password
+      updateBoardCommentInput: $input
+    ) {
+      _id
+    }
+  }
+`;

@@ -1,93 +1,173 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import "quill/dist/quill.snow.css";
+import Image from "next/image";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import "react-quill-new/dist/quill.snow.css";
 import styles from "./styles.module.css";
-/* 숙박권 판매 페이지 */
-export default function TravelNewPage() {
-    const editorRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const createEditor = async () => {
-            const Quill = (await import("quill")).default;
+// Quill은 브라우저에서만 돌려야 해서 ssr을 꺼놓고 불러와요.
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
-            if (!editorRef.current) return;
+export default function TravelProductNewPage() {
+  const [productName, setProductName] = useState("");
+  const [summary, setSummary] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [tags, setTags] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
 
-            new Quill(editorRef.current, {
-                theme: "snow",
-                placeholder: "내용을 입력해주세요.",
-                modules: {
-                    toolbar: [
-                        ["bold", "italic", "underline"],
-                        [{ header: [1, 2, 3, false] }],
-                        [{ align: [] }],
-                        ["link"]
-                    ]
-                }
-            });
-        };
+  // 필수 항목을 다 채워야 등록하기 버튼이 파란색으로 활성화돼요.
+  const isValid = Boolean(
+    productName && summary && description && price && detailAddress,
+  );
 
-        createEditor();
-    }, []);
+  return (
+    <main className={styles.page}>
+      <h1>숙박권 판매하기</h1>
 
-    return (
-        <main className={styles.page}>
-            <h1>숙박권 판매하기</h1>
-            <div className={styles.field}>
-                <p>상품명<span>*</span></p>
-                <input type="text" placeholder="상품명을 입력해주세요." required />
+      <div className={styles.field}>
+        <label htmlFor="productName">상품명 *</label>
+        <input
+          id="productName"
+          value={productName}
+          onChange={(event) => setProductName(event.target.value)}
+          placeholder="상품명을 입력해 주세요."
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="summary">한줄 요약 *</label>
+        <input
+          id="summary"
+          value={summary}
+          onChange={(event) => setSummary(event.target.value)}
+          placeholder="상품을 한줄로 요약해 주세요."
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label>상품 설명 *</label>
+        <ReactQuill
+          className={styles.editor}
+          theme="snow"
+          value={description}
+          onChange={setDescription}
+          placeholder="내용을 입력해 주세요."
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="price">판매 가격 *</label>
+        <input
+          id="price"
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
+          placeholder="판매 가격을 입력해 주세요. (숫자만)"
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="tags">태그 입력</label>
+        <input
+          id="tags"
+          value={tags}
+          onChange={(event) => setTags(event.target.value)}
+          placeholder="태그를 입력해 주세요."
+        />
+      </div>
+
+      <div className={styles.locationRow}>
+        <div className={styles.locationLeft}>
+          <div className={styles.field}>
+            <label>주소 *</label>
+            <div className={styles.zipRow}>
+              <input
+                className={styles.zipInput}
+                value={zipCode}
+                onChange={(event) => setZipCode(event.target.value)}
+                placeholder="01234"
+              />
+              <button className={styles.zipButton} type="button">
+                우편번호 검색
+              </button>
             </div>
+            <input
+              value={detailAddress}
+              onChange={(event) => setDetailAddress(event.target.value)}
+              placeholder="상세주소를 입력해 주세요."
+            />
+          </div>
 
-            <hr />
+          <div className={styles.field}>
+            <label htmlFor="lat">위도(LAT)</label>
+            <input
+              id="lat"
+              value={lat}
+              onChange={(event) => setLat(event.target.value)}
+              placeholder="주소를 먼저 입력해 주세요."
+            />
+          </div>
 
-            <div className={styles.field}>
-                <p>한줄요약<span>*</span></p>
-                <textarea placeholder="상품을 한줄로 요약해주세요." required />
-            </div>
+          <div className={styles.field}>
+            <label htmlFor="lng">경도(LNG)</label>
+            <input
+              id="lng"
+              value={lng}
+              onChange={(event) => setLng(event.target.value)}
+              placeholder="주소를 먼저 입력해 주세요."
+            />
+          </div>
+        </div>
 
-            <div className={styles.productSummary}>
-                <p>상품 설명<span>*</span></p>
-                <div ref={editorRef} />
-            </div>
+        <div className={styles.locationRight}>
+          <label>상세 위치</label>
+          <div className={styles.mapBox}>
+            {detailAddress ? (
+              <>
+                <Image
+                  src="/icons/location.svg"
+                  alt=""
+                  width={28}
+                  height={28}
+                />
+                <p>{detailAddress}</p>
+              </>
+            ) : (
+              <p>주소를 먼저 입력해 주세요.</p>
+            )}
+          </div>
+        </div>
+      </div>
 
-            <hr />
+      <div className={styles.field}>
+        <label>사진 첨부</label>
+        <button className={styles.photoBox} type="button">
+          <span className={styles.plus}>+</span>
+          <span>클릭해서 사진 업로드</span>
+        </button>
+      </div>
 
-            <div className={styles.field}>
-                <p>판매 가격<span>*</span></p>
-                <div className={styles.price}><input type="number" placeholder="판매 가격을 입력해주세요." required /><span>원</span></div>
-            </div>
-
-            <div className={styles.field}>
-                <p>태그</p>
-                <input type="text" placeholder="태그를 입력하고 Enter를 눌러주세요. (예: #오션뷰 #조식포함)" />
-            </div>
-
-            <hr />
-
-            <section className={styles.location}>
-                <p className={styles.label}>주소<span>*</span></p>
-                <div className={styles.zip}><input type="text" placeholder="우편번호" readOnly /><button type="button">우편번호 검색</button></div>
-                <input type="text" placeholder="주소를 검색해주세요." readOnly />
-                <input type="text" placeholder="상세 주소를 입력해주세요." />
-            </section>
-
-            <div className={styles.coord}>
-                <div className={styles.field}><p>위도 (LAT)</p><input type="text" placeholder="위도를 입력해주세요." /></div>
-                <div className={styles.field}><p>경도 (LNG)</p><input type="text" placeholder="경도를 입력해주세요." /></div>
-            </div>
-
-            <div className={styles.field}>
-                <p>상세 위치</p>
-                <div className={styles.map}>지도를 표시할 영역입니다.</div>
-            </div>
-
-            <div className={styles.field}>
-                <p>사진 첨부</p>
-                <label className={styles.upload}><input type="file" accept="image/*" multiple /><strong>＋</strong><span>사진 추가</span></label>
-                <small>이미지는 최대 5장까지 등록할 수 있습니다.</small>
-            </div>
-
-            <div className={styles.actions}><button type="button" className={styles.cancel}>취소</button><button type="submit" className={styles.submit}>등록하기</button></div>
-        </main>
-    );
+      <div className={styles.buttonRow}>
+        <Link className={styles.cancelButton} href="/travelproducts">
+          취소
+        </Link>
+        <button
+          className={
+            isValid
+              ? `${styles.submitButton} ${styles.active}`
+              : styles.submitButton
+          }
+          type="button"
+          disabled={!isValid}
+        >
+          등록하기
+        </button>
+      </div>
+    </main>
+  );
 }

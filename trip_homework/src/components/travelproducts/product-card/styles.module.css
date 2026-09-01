@@ -9,6 +9,10 @@
   height: 296px;
 }
 
+.imageBox a {
+  display: block;
+}
+
 .productImage {
   width: 296px;
   height: 296px;
@@ -40,7 +44,10 @@
 }
 
 .textBox {
+  display: block;
   padding-top: 12px;
+  color: inherit;
+  text-decoration: none;
 }
 
 .textBox h3,
@@ -62,7 +69,7 @@
   font-size: 13px;
 }
 
-.textBox a {
+.tag {
   display: block;
   overflow: hidden;
   margin-bottom: 12px;

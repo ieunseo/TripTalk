@@ -1,0 +1,404 @@
+.article {
+  width: min(calc(100% - 40px), 1280px);
+  margin: 0 auto;
+  padding: 60px 0 120px;
+}
+
+.topRow {
+  display: flex;
+  margin-bottom: 26px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.topRow h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  letter-spacing: -0.6px;
+}
+
+.subtitle {
+  margin: 0 0 8px;
+  color: #888888;
+  font-size: 14px;
+}
+
+.tags {
+  margin: 0;
+  color: #2878ef;
+  font-size: 13px;
+}
+
+.metaIcons {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 14px;
+  color: #999999;
+  font-size: 12px;
+}
+
+.metaIcons button {
+  display: flex;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dateBadge {
+  display: flex;
+  height: 26px;
+  padding: 0 10px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  color: #333333;
+  background: #d9d9d9;
+  font-weight: 600;
+}
+
+.dateBadge img {
+  filter: brightness(0) invert(1);
+}
+
+.mainRow {
+  display: flex;
+  margin-bottom: 46px;
+  gap: 24px;
+}
+
+.gallery {
+  display: flex;
+  gap: 24px;
+}
+
+.mainImage {
+  width: 640px;
+  height: 480px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.thumbList {
+  display: flex;
+  width: 180px;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.thumbList img {
+  width: 180px;
+  height: 136px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.sidebar {
+  display: flex;
+  width: 412px;
+  height: 356px;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 14px;
+}
+
+.priceBox {
+  flex: 1;
+  padding: 22px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.priceBox strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 22px;
+}
+
+.priceBox ul {
+  margin: 0 0 18px;
+  padding-left: 16px;
+  color: #999999;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.buyButton {
+  width: 100%;
+  height: 46px;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  background: #2878ef;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sellerBox {
+  padding: 18px 22px;
+  border-radius: 12px;
+  background: #f0f0f0;
+}
+
+.sellerBox strong {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.seller {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.avatar {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f0f0f0;
+  font-size: 14px;
+}
+
+.section {
+  padding: 30px 0;
+  border-top: 1px solid #eeeeee;
+}
+
+.section h2 {
+  margin: 0 0 20px;
+  font-size: 16px;
+}
+
+.description {
+  margin: 0;
+  color: #444444;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.mapBox {
+  display: flex;
+  min-height: 230px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 12px;
+  color: #999999;
+  background: #f2f2f2;
+  font-size: 13px;
+}
+
+.privateCheck {
+  display: flex;
+  margin-bottom: 14px;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inquiryBox {
+  position: relative;
+}
+
+.inquiryBox textarea {
+  width: 100%;
+  height: 90px;
+  padding: 14px 16px 24px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  outline: 0;
+  resize: none;
+  font-size: 13px;
+}
+
+.inquiryBox textarea:focus {
+  border-color: #2878ef;
+}
+
+.charCount {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  color: #bbbbbb;
+  font-size: 12px;
+}
+
+.inquiryButtonRow {
+  display: flex;
+  margin: 12px 0 30px;
+  justify-content: flex-end;
+}
+
+.inquiryButton {
+  width: 96px;
+  height: 42px;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  background: #111111;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.inquiryButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emptyState {
+  padding: 40px 0;
+  color: #999999;
+  text-align: center;
+  font-size: 14px;
+}
+
+.commentList,
+.replyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.comment {
+  padding: 20px 0;
+  border-top: 1px solid #eeeeee;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.commentHeader strong {
+  font-size: 13px;
+}
+
+.commentContent {
+  margin: 10px 0 8px;
+  padding-left: 36px;
+  color: #444444;
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.commentFooter {
+  display: flex;
+  padding-left: 36px;
+  align-items: center;
+  gap: 12px;
+}
+
+.commentFooter time {
+  color: #aaaaaa;
+  font-size: 14px;
+}
+
+.commentFooter button {
+  border: 0;
+  background: transparent;
+  color: #777777;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.replyIcons {
+  display: flex;
+  margin-left: auto;
+  gap: 8px;
+}
+
+.replyIcons button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.replyList {
+  margin: 14px 0 0 36px;
+  padding-left: 16px;
+  border-left: 2px solid #f0f0f0;
+}
+
+.reply time {
+  display: block;
+  margin-top: 8px;
+  color: #aaaaaa;
+  font-size: 14px;
+}
+
+.reply + .reply {
+  margin-top: 16px;
+}
+
+.replyForm,
+.reply textarea {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.replyForm textarea,
+.reply textarea {
+  width: 100%;
+  height: 70px;
+  padding: 10px 14px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  outline: 0;
+  resize: none;
+  font-size: 13px;
+}
+
+.replyForm {
+  padding-left: 36px;
+}
+
+.replyButtonRow {
+  display: flex;
+  margin-top: 8px;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.replyButtonRow button {
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* .replyButtonRow button보다 구체적으로 써서 검정 버튼 스타일이 이기게 해요. */
+.replyButtonRow .primaryButton {
+  border: 0;
+  color: #ffffff;
+  background: #111111;
+}
+
+@media (max-width: 760px) {
+  .mainRow {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+}
