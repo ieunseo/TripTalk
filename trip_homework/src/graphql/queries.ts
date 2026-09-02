@@ -57,6 +57,77 @@ export const FETCH_BOARD_COMMENTS = gql`
   }
 `;
 
+export const FETCH_TRAVELPRODUCTS = gql`
+  query fetchTravelproducts($page: Int, $search: String) {
+    fetchTravelproducts(page: $page, search: $search) {
+      _id
+      name
+      remarks
+      price
+      tags
+      images
+      pickedCount
+      seller {
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_TRAVELPRODUCT = gql`
+  query fetchTravelproduct($travelproductId: ID!) {
+    fetchTravelproduct(travelproductId: $travelproductId) {
+      _id
+      name
+      remarks
+      contents
+      price
+      tags
+      images
+      pickedCount
+      createdAt
+      seller {
+        name
+      }
+      travelproductAddress {
+        address
+        addressDetail
+        lat
+        lng
+      }
+    }
+  }
+`;
+
+export const FETCH_TRAVELPRODUCT_QUESTIONS = gql`
+  query fetchTravelproductQuestions($travelproductId: ID!, $page: Int) {
+    fetchTravelproductQuestions(travelproductId: $travelproductId, page: $page) {
+      _id
+      contents
+      createdAt
+      user {
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_TRAVELPRODUCT_QUESTION_ANSWERS = gql`
+  query fetchTravelproductQuestionAnswers($questionId: ID!, $page: Int) {
+    fetchTravelproductQuestionAnswers(
+      travelproductQuestionId: $questionId
+      page: $page
+    ) {
+      _id
+      contents
+      createdAt
+      user {
+        name
+      }
+    }
+  }
+`;
+
 export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
