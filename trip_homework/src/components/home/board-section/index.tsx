@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { FETCH_BOARDS, FETCH_BOARDS_OF_THE_BEST } from "@/graphql/queries";
+import { FETCH_BOARDS, FETCH_BOARDS_OF_THE_BEST, FETCH_BOARDS_COUNT } from "@/graphql/queries";
 import type { Board } from "@/types/board";
 import styles from "./styles.module.css";
 
@@ -20,14 +20,39 @@ const formatDate = (date: string) => date.slice(0, 10).replaceAll("-", ".");
 
 export default function BoardSection() {
   const [keyword, setKeyword] = useState("");
-  const { data, loading, error, refetch } = useQuery<{ fetchBoards: Board[] }>(
-    FETCH_BOARDS,
-    {
-      variables: { page: 1, search: "" },
-      // 이 Query는 브라우저 화면이 열린 뒤 실행해요.
-      ssr: false,
-    },
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [search, setSearch] = useState("");
+  const [dateRange, setDateRange] = useState({ start: "", end: "" });
+  const [page, setPage] = useState(1);
+  const { data, loading, error } = useQuery<{ fetchBoards: Board[] }>(
+      FETCH_BOARDS,
+      {
+        // 화면 다시 렌더링
+        variables: {
+          page,
+          search,
+          startDate: dateRange.start || undefined,
+          endDate: dateRange.end || undefined,
+        },
+        // 이 Query는 브라우저 화면이 열린 뒤 실행해요.
+        ssr: false,
+      },
   );
+  const {
+    data: countData,
+    loading: countLoading,
+    error: countError,
+  } = useQuery<{
+    fetchBoardsCount: number;
+  }>(FETCH_BOARDS_COUNT, {
+    variables: {
+      search,
+      startDate: dateRange.start || undefined,
+      endDate: dateRange.end || undefined,
+    },
+    ssr: false,
+  });
 
   // 위쪽 카드는 일반 목록을 잘라 쓰지 않고 베스트 게시글 API로 따로 받아요.
   const { data: bestData } = useQuery<{ fetchBoardsOfTheBest: Board[] }>(
@@ -39,9 +64,21 @@ export default function BoardSection() {
   const hotBoards = bestData?.fetchBoardsOfTheBest.slice(0, 4) ?? [];
   const displayedBoards = boards.slice(0, 10);
 
+  //검색
   const onSubmitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    refetch({ page: 1, search: keyword });
+
+    if (startDate && endDate && startDate > endDate) {
+      alert("시작일은 종료일보다 빠른 날짜를 선택해 주세요.");
+      return;
+    }
+
+    setPage(1);
+    setSearch(keyword.trim());
+    setDateRange({
+      start: startDate ? `${startDate}T00:00:00.000Z` : "",
+      end: endDate ? `${endDate}T23:59:59.999Z` : "",
+    });
   };
 
   if (loading)

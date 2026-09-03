@@ -141,3 +141,14 @@ export const FETCH_USER_LOGGED_IN = gql`
     }
   }
 `;
+
+// 검색 결과가 모두 몇 개인지 받아 페이지의 마지막 번호를 계산해요.
+export const FETCH_BOARDS_COUNT = gql`
+  query fetchBoardsCount(
+    $search: String
+    $startDate: DateTime
+    $endDate: DateTime
+  ) {
+    fetchBoardsCount(search: $search, startDate: $startDate, endDate: $endDate)
+  }
+`;
