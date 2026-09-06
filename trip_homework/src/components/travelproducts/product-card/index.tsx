@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 // 상품 카드가 받아야 하는 값들의 타입이에요.
 type ProductCardProps = {
-  id: number;
+  id: string;
   image: string;
   title: string;
   description: string;

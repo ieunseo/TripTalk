@@ -29,7 +29,13 @@ export const DISLIKE_BOARD = gql`
     dislikeBoard(boardId: $boardId)
   }
 `;
-
+export const CREATE_BOARD = gql`
+  mutation CreateBoard($input: CreateBoardInput!) {
+    createBoard(createBoardInput: $input) {
+      _id
+    }
+  }
+`;
 export const CREATE_BOARD_COMMENT = gql`
   mutation createBoardComment(
     $boardId: ID!
@@ -63,5 +69,17 @@ export const UPDATE_BOARD_COMMENT = gql`
     ) {
       _id
     }
+  }
+`;
+export const RESTORE_ACCESS_TOKEN = gql`
+  mutation RestoreAccessToken {
+    restoreAccessToken {
+      accessToken
+    }
+  }
+`;
+export const LOGOUT_USER = gql`
+  mutation LogoutUser {
+    logoutUser
   }
 `;

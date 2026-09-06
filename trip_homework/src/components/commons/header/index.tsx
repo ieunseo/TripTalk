@@ -1,36 +1,32 @@
 "use client";
 
-import { useApolloClient, useQuery } from "@apollo/client/react";
+import { useApolloClient, useQuery, useMutation } from "@apollo/client/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FETCH_USER_LOGGED_IN } from "@/graphql/queries";
-import { getAccessToken, removeAccessToken } from "@/lib/auth";
+import { LOGOUT_USER } from "@/graphql/mutations";
 import type { User } from "@/types/user";
 import styles from "./styles.module.css";
+import { useAuthStore } from "@/store/useStore";
 
 export default function Header() {
   const client = useApolloClient();
   const pathname = usePathname();
   const router = useRouter();
 
+  const [logoutUser, { loading: logoutLoading }] = useMutation<{
+    logoutUser: boolean;
+  }>(LOGOUT_USER);
+
   // 서버에는 sessionStorage가 없으므로 처음에는 로그아웃 상태로 시작해요.
-  const [accessToken, setAccessToken] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const accessToken = useAuthStore((state) => state.accessToken);
+  // const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
-  useEffect(() => {
-    // 화면이 브라우저에 나타난 다음 저장된 토큰을 확인해요.
-    // 이렇게 하면 서버 화면과 브라우저의 첫 화면이 달라지는 오류를 막을 수 있어요.
-    const frameId = requestAnimationFrame(() => {
-      const savedAccessToken = getAccessToken();
-      setAccessToken(savedAccessToken);
-    });
-
-    return () => cancelAnimationFrame(frameId);
-  }, []);
-
-  const { data, error } = useQuery<{ fetchUserLoggedIn: User }>(
+  const { data, error,refetch } = useQuery<{ fetchUserLoggedIn: User }>(
     FETCH_USER_LOGGED_IN,
     {
       skip: accessToken === "",
@@ -39,28 +35,29 @@ export default function Header() {
     },
   );
 
-  useEffect(() => {
-    // 서버가 만료되거나 잘못된 토큰이라고 알려주면 로그아웃 상태로 바꿔요.
-    if (!error) return;
-
-    removeAccessToken();
-    void client.clearStore();
-
-    const frameId = requestAnimationFrame(() => {
-      setAccessToken("");
-    });
-
-    return () => cancelAnimationFrame(frameId);
-  }, [client, error]);
 
   const onClickLogout = async () => {
-    // 저장했던 토큰과 Apollo에 남아 있는 로그인 정보를 함께 지워요.
-    removeAccessToken();
-    setAccessToken("");
+    try {
+      // 먼저 서버에 로그아웃을 요청해요.
+      const result = await logoutUser();
+
+      if (!result.data?.logoutUser) {
+        alert("로그아웃에 실패했어요. 다시 시도해 주세요.");
+        return;
+      }
+    } catch {
+      alert("서버에 로그아웃을 요청하지 못했어요. 다시 시도해 주세요.");
+      return;
+    }
+
+    // 서버 로그아웃에 성공하면 화면의 상태도 정리해요.
+    clearAuth();
+    // menu바꾸깅
+    setIsMenuOpen(false);
+    // apolli 에 있는거 없애버리깅
     await client.clearStore();
     router.push("/");
   };
-
   const user = data?.fetchUserLoggedIn;
   const point = user?.userPoint?.amount ?? 0;
   const isTripTalkPage = pathname === "/" || pathname.startsWith("/boards");
@@ -91,6 +88,20 @@ export default function Header() {
           </Link>
         </nav>
 
+        {error && accessToken && (
+            <div role="alert">
+              <span>사용자 정보를 불러오지 못했어요.</span>
+
+              <button
+                  type="button"
+                  onClick={() => {
+                    void refetch().catch(() => {});
+                  }}
+              >
+                다시 확인
+              </button>
+            </div>
+        )}
         {accessToken === "" ? (
           <Link className={styles.loginButton} href="/login">
             로그인
@@ -157,7 +168,7 @@ export default function Header() {
                   포인트 충전
                 </button>
 
-                <button className={styles.menuRow} type="button" onClick={onClickLogout}>
+                <button className={styles.menuRow} type="button" onClick={onClickLogout} disabled={logoutLoading}>
                   <span className={styles.menuIcon}>
                     <Image src="/icons/logout.svg" alt="" width={20} height={20} />
                   </span>

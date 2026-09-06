@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { LOGIN_USER } from "@/graphql/mutations";
-import { saveAccessToken } from "@/lib/auth";
+import { useAuthStore } from "@/store/useStore";
 import styles from "../auth.module.css";
 
 type LoginResult = {
@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loginUser, { loading }] = useMutation<LoginResult>(LOGIN_USER);
-
+  const setAccessToken = useAuthStore((state) => state.setAccessToken,);
   const onSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     // form의 기본 새로고침을 막고 아래에서 직접 로그인 API를 실행해요.
     event.preventDefault();
@@ -39,7 +39,7 @@ export default function LoginPage() {
 
       // 토큰은 현재 탭을 닫으면 사라지는 sessionStorage에 저장해요.
       // 실제 서비스에서는 이후 refresh token으로 로그인을 연장할 수 있어요.
-      saveAccessToken(accessToken);
+      setAccessToken(accessToken);
       router.replace("/");
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "로그인에 실패했어요.");
